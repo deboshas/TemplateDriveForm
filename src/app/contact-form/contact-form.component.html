@@ -1,0 +1,27 @@
+<form #f="ngForm" (ngSubmit)="submit(f)">
+    <div ngModelGroup="contact" #contact="ngModelGroup">
+        <div class="form-group">
+            <label for="fname">FirstName</label>
+            <input required ngModel name="fname" #firstname="ngModel" (change)="log(firstname)" id="fname" type="text"
+                class="form-control" minlength="5" maxlength="10">
+
+            <div *ngIf="firstname.touched && !firstname.valid" class="alert alert-danger">
+                <div *ngIf="firstname.errors.required">
+                    First Name is required
+                </div>
+                <div *ngIf="firstname.errors.minlength">
+                    First Name should be minumum
+                    {{firstname.errors.minlength.requiredLength}} chars
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label for="comment">Comment</label>
+        <input ngModel name="comment" id="comment" type="textarea" cols=30 rows=10 class="form-control">
+    </div>
+    <button class="btn btn-primary" [disabled]="!f.valid" (click)="submit()">submit</button>
+
+</form>
